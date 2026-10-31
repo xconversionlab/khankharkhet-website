@@ -194,30 +194,31 @@ function Hero() {
 
   return (
     <section className="hero-frame relative bg-pine-deep text-paper">
-      <img
-        src="/media/hero.jpg"
-        alt="Atmospheric photograph of a dawn Himalayan ridge above pine forest."
-        width={1600}
-        height={900}
-        fetchPriority="high"
-        decoding="async"
-        className="hero-visual absolute"
-      />
-      {mounted && reduce === false ? (
-        <video
-          ref={videoRef}
-          className="hero-visual absolute"
-          poster="/media/hero.jpg"
-          muted
-          loop
-          playsInline
-          preload="metadata"
-        >
-          <source src="/media/hero.mp4" type="video/mp4" />
-        </video>
-      ) : null}
-      <div className="absolute inset-0 bg-pine-deep/35" />
-      <div className="absolute inset-x-0 bottom-0 h-2/3 bg-pine-deep/75" />
+      <div className="hero-media" aria-hidden="true">
+        <img
+          src="/media/hero.jpg"
+          alt=""
+          width={1600}
+          height={900}
+          fetchPriority="high"
+          decoding="async"
+          className="hero-media-image"
+        />
+        {mounted && reduce === false ? (
+          <video
+            ref={videoRef}
+            className={`hero-media-video${playing ? " is-playing" : ""}`}
+            poster="/media/hero.jpg"
+            muted
+            loop
+            playsInline
+            preload="metadata"
+          >
+            <source src="/media/hero.mp4" type="video/mp4" />
+          </video>
+        ) : null}
+      </div>
+      <div className="absolute inset-0 bg-gradient-to-t from-pine-deep/90 via-pine-deep/55 to-pine-deep/25" />
       <div className="hero-frame relative mx-auto flex max-w-6xl flex-col justify-end px-5 pt-8 pb-10 md:px-10 md:pb-14">
         <p className="text-xs tracking-widest text-mist uppercase">Chamoli · Uttarakhand</p>
         <h1 className="mt-3 max-w-5xl text-4xl leading-none text-paper sm:text-6xl lg:text-8xl">
