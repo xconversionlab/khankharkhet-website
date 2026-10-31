@@ -74,3 +74,35 @@
     min-height: calc(100svh - 5rem);
   }
 }
+
+/* Cinematic hero camera move: push in to the midpoint, then pull back
+   while travelling horizontally. Alternate reverses direction each cycle. */
+.hero-visual {
+  inset: -3%;
+  width: 106%;
+  height: 106%;
+  object-fit: cover;
+  transform-origin: center;
+  animation: khankharkhet-hero-drift 30s linear infinite alternate;
+  will-change: transform;
+}
+
+@keyframes khankharkhet-hero-drift {
+  0% {
+    transform: scale(1) translate3d(-1.5%, 0, 0);
+  }
+  50% {
+    transform: scale(1.095) translate3d(0, 0, 0);
+  }
+  100% {
+    transform: scale(1) translate3d(1.5%, 0, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-visual {
+    animation: none;
+    transform: none;
+    will-change: auto;
+  }
+}
