@@ -78,20 +78,23 @@
 /* Cinematic hero camera move: push in to the midpoint, then pull back
    while travelling horizontally. Alternate reverses direction each cycle. */
 
-/* One shared camera layer keeps the still and the video perfectly aligned.
-   Each 30-second pass pushes in, travels horizontally, then pulls back.
-   Alternate reverses the travel direction on the next pass. */
+/* Hero camera path: zoom in, travel laterally, zoom out, then return to
+   the start frame at matching scale/position. Alternate reverses direction
+   each cycle; identical endpoints prevent a visible reset. */
 .hero-media {
   position: absolute;
-  inset: -6%;
+  inset: -7%;
   overflow: hidden;
   transform-origin: center;
-  animation: khankharkhet-hero-camera 30s linear infinite alternate;
+  animation: khankharkhet-hero-camera 48s linear infinite alternate;
   will-change: transform;
 }
 
-.hero-media-image,
-.hero-media-video {
+.hero-media.is-paused {
+  animation-play-state: paused;
+}
+
+.hero-media-image {
   position: absolute;
   inset: 0;
   display: block;
@@ -101,24 +104,21 @@
   object-fit: cover;
 }
 
-.hero-media-video {
-  opacity: 0;
-  transition: opacity 800ms ease;
-}
-
-.hero-media-video.is-playing {
-  opacity: 1;
-}
-
 @keyframes khankharkhet-hero-camera {
   0% {
-    transform: scale(1) translate3d(2.4%, 0, 0);
+    transform: translate3d(-2%, 0, 0) scale(1.025);
+  }
+  25% {
+    transform: translate3d(-2%, 0, 0) scale(1.14);
   }
   50% {
-    transform: scale(1.12) translate3d(0, 0, 0);
+    transform: translate3d(2%, 0, 0) scale(1.14);
+  }
+  75% {
+    transform: translate3d(2%, 0, 0) scale(1.025);
   }
   100% {
-    transform: scale(1) translate3d(-2.4%, 0, 0);
+    transform: translate3d(-2%, 0, 0) scale(1.025);
   }
 }
 
@@ -127,9 +127,5 @@
     animation: none;
     transform: none;
     will-change: auto;
-  }
-
-  .hero-media-video {
-    transition: none;
   }
 }
