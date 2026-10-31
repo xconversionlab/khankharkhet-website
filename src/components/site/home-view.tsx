@@ -170,7 +170,7 @@ function Hero() {
   const [motionPaused, setMotionPaused] = useState(false);
 
   return (
-    <section className="hero-frame relative bg-pine-deep text-paper">
+    <section className="hero-stage hero-frame bg-pine-deep text-paper">
       <div className={`hero-media${motionPaused ? " is-paused" : ""}`} aria-hidden="true">
         <img
           src="/media/hero.jpg"
@@ -182,8 +182,8 @@ function Hero() {
           className="hero-media-image"
         />
       </div>
-      <div className="absolute inset-0 bg-gradient-to-t from-pine-deep/90 via-pine-deep/55 to-pine-deep/25" />
-      <div className="hero-frame relative mx-auto flex max-w-6xl flex-col justify-end px-5 pt-8 pb-10 md:px-10 md:pb-14">
+      <div className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-t from-pine-deep/90 via-pine-deep/55 to-pine-deep/25" />
+      <div className="hero-frame relative z-20 mx-auto flex max-w-6xl flex-col justify-end px-5 pt-8 pb-10 md:px-10 md:pb-14">
         <p className="text-xs tracking-widest text-mist uppercase">Chamoli · Uttarakhand</p>
         <h1 className="mt-3 max-w-5xl text-4xl leading-none text-paper sm:text-6xl lg:text-8xl">
           {identity.name}
