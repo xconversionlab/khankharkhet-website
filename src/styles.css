@@ -75,14 +75,17 @@
   }
 }
 
-/* Cinematic hero camera move: push in to the midpoint, then pull back
-   while travelling horizontally. Alternate reverses direction each cycle. */
+/* Hero camera path. The stage clips the moving layer so it can never overlap
+   the following content; the text and CTA remain on a separate foreground layer. */
+.hero-stage {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
 
-/* Hero camera path: zoom in, travel laterally, zoom out, then return to
-   the start frame at matching scale/position. Alternate reverses direction
-   each cycle; identical endpoints prevent a visible reset. */
 .hero-media {
   position: absolute;
+  z-index: 0;
   inset: -7%;
   overflow: hidden;
   transform-origin: center;
