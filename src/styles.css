@@ -1,0 +1,76 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Fraunces", "Iowan Old Style", Georgia, serif;
+  --font-sans: "Outfit", "Avenir Next", "Segoe UI", sans-serif;
+  --color-paper: #f3eee4;
+  --color-foam: #f7f3eb;
+  --color-ink: #1c1915;
+  --color-pine: #1a3328;
+  --color-pine-deep: #102019;
+  --color-copper: #c4622d;
+  --color-copper-deep: #8d3f16;
+  --color-mist: #e7e0d2;
+  --color-stone: #5c564e;
+  --color-line: #d9d0c2;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  body {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-weight: 400;
+    line-height: 1.55;
+  }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 560;
+    text-wrap: balance;
+    letter-spacing: -0.03em;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-copper);
+    outline-offset: 3px;
+  }
+
+  ::selection {
+    background: var(--color-pine);
+    color: var(--color-paper);
+  }
+}
+
+.hero-frame {
+  min-height: calc(100svh - 4rem);
+}
+
+@media (min-width: 48rem) {
+  .hero-frame {
+    min-height: calc(100svh - 5rem);
+  }
+}
