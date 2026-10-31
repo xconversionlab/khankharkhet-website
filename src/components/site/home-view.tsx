@@ -201,12 +201,12 @@ function Hero() {
         height={900}
         fetchPriority="high"
         decoding="async"
-        className="absolute inset-0 h-full w-full object-cover"
+        className="hero-visual absolute"
       />
       {mounted && reduce === false ? (
         <video
           ref={videoRef}
-          className="absolute inset-0 h-full w-full object-cover"
+          className="hero-visual absolute"
           poster="/media/hero.jpg"
           muted
           loop
