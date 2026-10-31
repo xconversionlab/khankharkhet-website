@@ -1,6 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { useEffect, useRef, useState } from "react";
-import { useReducedMotion } from "framer-motion";
+import { useState } from "react";
 import { buttonClass } from "@/components/ui/button";
 import { SourceTag, Wrap } from "@/components/site/blocks";
 import { Reveal } from "@/components/site/reveal";
@@ -168,33 +167,11 @@ function Fact({ kicker, value, note }: { kicker: string; value: string; note: st
 }
 
 function Hero() {
-  const reduce = useReducedMotion();
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const [mounted, setMounted] = useState(false);
-  const [playing, setPlaying] = useState(false);
-
-  useEffect(() => setMounted(true), []);
-
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video || !mounted || reduce !== false) return;
-    video.play().then(() => setPlaying(true)).catch(() => setPlaying(false));
-  }, [mounted, reduce]);
-
-  function toggle() {
-    const video = videoRef.current;
-    if (!video) return;
-    if (video.paused) {
-      video.play().then(() => setPlaying(true)).catch(() => setPlaying(false));
-    } else {
-      video.pause();
-      setPlaying(false);
-    }
-  }
+  const [motionPaused, setMotionPaused] = useState(false);
 
   return (
     <section className="hero-frame relative bg-pine-deep text-paper">
-      <div className="hero-media" aria-hidden="true">
+      <div className={`hero-media${motionPaused ? " is-paused" : ""}`} aria-hidden="true">
         <img
           src="/media/hero.jpg"
           alt=""
@@ -204,19 +181,6 @@ function Hero() {
           decoding="async"
           className="hero-media-image"
         />
-        {mounted && reduce === false ? (
-          <video
-            ref={videoRef}
-            className={`hero-media-video${playing ? " is-playing" : ""}`}
-            poster="/media/hero.jpg"
-            muted
-            loop
-            playsInline
-            preload="metadata"
-          >
-            <source src="/media/hero.mp4" type="video/mp4" />
-          </video>
-        ) : null}
       </div>
       <div className="absolute inset-0 bg-gradient-to-t from-pine-deep/90 via-pine-deep/55 to-pine-deep/25" />
       <div className="hero-frame relative mx-auto flex max-w-6xl flex-col justify-end px-5 pt-8 pb-10 md:px-10 md:pb-14">
@@ -234,11 +198,14 @@ function Hero() {
           <Link to="/enquire" className={buttonClass("copper")}>
             Plan an enquiry
           </Link>
-          {mounted && reduce === false ? (
-            <button type="button" onClick={toggle} className="min-h-11 px-3 text-sm text-paper underline decoration-paper/40 underline-offset-4">
-              {playing ? "Pause film" : "Play film"}
-            </button>
-          ) : null}
+          <button
+            type="button"
+            onClick={() => setMotionPaused((paused) => !paused)}
+            className="min-h-11 px-3 text-sm text-paper underline decoration-paper/40 underline-offset-4"
+            aria-pressed={motionPaused}
+          >
+            {motionPaused ? "Play motion" : "Pause motion"}
+          </button>
         </div>
         <p className="mt-8 max-w-lg text-xs leading-relaxed text-mist/90">{visualNote}</p>
       </div>
